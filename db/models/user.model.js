@@ -1,6 +1,6 @@
 const { Model, DataTypes, Sequelize } = require('sequelize');
 
-const USER_TABLE = 'user';
+const USER_TABLE = 'users';
 
 const UserSchema = {
   id: {
@@ -27,11 +27,6 @@ const UserSchema = {
     allowNull: true,
     type: DataTypes.STRING,
 
-  },
-  role: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    defaultValue: 'customer',
   },
   createAt: {
     allowNull: false,

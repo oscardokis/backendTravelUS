@@ -13,8 +13,8 @@ module.exports = {
     await queryInterface.createTable(COMMENT_TABLE, CommentSchema);
   },
   async down (queryInterface) {
-    await queryInterface.dropTable(USER_TABLE);
     await queryInterface.dropTable(MY_TRIPS_TABLE);
     await queryInterface.dropTable(COMMENT_TABLE);
+    await queryInterface.dropTable(USER_TABLE);
   }
 };

@@ -1,6 +1,6 @@
 const boom = require('@hapi/boom');
 const bcrypt = require('bcrypt');
-const { models } = require('../db/models/index');
+const { models } = require('../libs/sequelize');
 
 class UserService {
 
@@ -12,6 +12,14 @@ class UserService {
     });
     delete newUser.dataValues.password;
     return newUser;
+  }
+  async findByUserName(username) {
+    const user = await models.User.findOne({
+      where: {
+        username
+      }
+    });
+    return user;
   }
   async findByEmail(email) {
     const user = await models.User.findOne({
