@@ -14,12 +14,23 @@ router.post('/login',
     try {
       const { user } = req;
       const { token } = service.signToken(user);
-      res.json({ user, token });
+      res.cookie('jwt', token, { httpOnly: true, secure: true, maxAge: 15 * 60 * 1000 }); // Set cookie
+      res.json({ message: 'Login successful', user, token });
     } catch (error) {
       next(error);
     }
   }
 );
+router.get('/validate', 
+  passport.authenticate('jwt', { session: false }), 
+  (req, res, next) => {
+    try {
+      res.status(200).json({ message: 'Session is valid' });
+    } catch (error) {
+      next(error);
+    }
+});
+
 router.post('/recovery',
   async (req, res, next) => {
     try {

@@ -30,7 +30,7 @@ class AuthService {
       sub: username.id,
       iat: Date.now(),
     };
-    const token = jwt.sign(payload, config.jwtSecret);
+    const token = jwt.sign(payload, config.jwtSecret, { expiresIn: '15m' });
     return { username, token };
   }
 
@@ -87,6 +87,7 @@ class AuthService {
   }
 
   isAuthenticated() {
+
     return this.authenticated;
   }
 }

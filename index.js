@@ -1,16 +1,20 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const routerApi = require('./routes/index');
 const cors = require('cors');
 const {config} = require('./config/index');
 const { logErrors, errorHandler, boomErrorHandler, sequelizeErrorHandler} = require('./middlewares/error.handler');
+const passport = require('passport');
 
 
 const app = express();
 const port = config.port;
 
 app.use(express.json());
+app.use(cookieParser());
+app.use(passport.initialize());
 
-const whiteList = ['http://localhost:3001'];
+const whiteList = ['http://localhost:3001', 'http://localhost:5173'];
 const corsOptions = {
   origin: (origin, callback) => {
     if(whiteList.includes(origin) || !origin){
@@ -20,7 +24,6 @@ const corsOptions = {
     }
   }
 }
-
 app.use(cors(corsOptions));
 
 require('./utils/auth');

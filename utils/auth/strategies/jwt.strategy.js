@@ -2,7 +2,9 @@ const { Strategy, ExtractJwt } = require('passport-jwt');
 const { config } = require('../../../config');
 
 const options = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  jwtFromRequest: ExtractJwt.fromExtractors([
+    (req) => req.cookies.jwt,
+  ]),
   secretOrKey: config.jwtSecret,
 };
 

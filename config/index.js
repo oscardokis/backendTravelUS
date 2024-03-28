@@ -14,5 +14,6 @@ const config = {
   emailPassword: process.env.EMAIL_PASSWORD,
   emailHost: process.env.EMAIL_HOST,
   emailTest: process.env.EMAIL_TEST,
+  sessionSecret: process.env.SESSION_SECRET,
 }
 module.exports = { config };
