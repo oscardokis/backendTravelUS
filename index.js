@@ -1,5 +1,6 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const routerApi = require('./routes/index');
 const cors = require('cors');
 const {config} = require('./config/index');
@@ -12,7 +13,16 @@ const port = config.port;
 
 app.use(express.json());
 app.use(cookieParser());
+
+app.use(session({
+  secret: process.env.SESSION_SECRET, // Use a strong secret
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: 'auto', httpOnly: true } // Make sure to set secure to true in production
+}));
+
 app.use(passport.initialize());
+app.use(passport.session());
 
 const whiteList = ['http://localhost:3001', 'http://localhost:5173', 'http://127.0.0.1:5173'];
 const corsOptions = {

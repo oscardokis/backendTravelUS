@@ -14,13 +14,23 @@ router.post('/login',
     try {
       const { user } = req;
       const { token } = service.signToken(user);
-      res.cookie('jwt', token, { httpOnly: true, secure: true, maxAge: 15 * 60 * 1000 }); // Set cookie
+      // secure true in real server !!!!!!!!!!!
+      res.cookie('jwt', token, { httpOnly: true, secure: false, maxAge: 15 * 60 * 1000 }); // Set cookie
       res.json({ message: 'Login successful', user, token });
     } catch (error) {
       next(error);
     }
   }
 );
+router.post('/logout', async (req, res, next) => {
+  req.logout(function(err) {
+    if (err) { 
+      return next(err); 
+    }
+    res.clearCookie('jwt'); 
+    res.status(200).json({ message: 'Logged out successfully' });
+  });
+});
 router.get('/validate', 
   passport.authenticate('jwt', { session: false }), 
   (req, res, next) => {
