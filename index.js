@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(passport.initialize());
 
-const whiteList = ['http://localhost:3001', 'http://localhost:5173'];
+const whiteList = ['http://localhost:3001', 'http://localhost:5173', 'http://127.0.0.1:5173'];
 const corsOptions = {
   origin: (origin, callback) => {
     if(whiteList.includes(origin) || !origin){
