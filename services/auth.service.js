@@ -27,10 +27,9 @@ class AuthService {
 
   signToken(username) {
     const payload = {
-      sub: username.id,
-      iat: Date.now(),
+      sub: username.id
     };
-    const token = jwt.sign(payload, config.jwtSecret, { expiresIn: '15m' });
+    const token = jwt.sign(payload, config.jwtSecret, { expiresIn: '10s' });
     return { username, token };
   }
 
