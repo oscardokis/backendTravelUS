@@ -51,7 +51,7 @@ const CommentSchema = {
 
 class Comment extends Model {
   static associate(models) {
-    this.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+    Comment.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
   }
   static config(sequelize) {
     return {

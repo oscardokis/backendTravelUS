@@ -3,6 +3,7 @@ const { models } = require('../libs/sequelize');
 const jwt = require('jsonwebtoken');
 const { config } = require('../config/index.js');
 
+
 class CommentService {
 
   constructor() {
@@ -29,7 +30,8 @@ class CommentService {
   }
 
   async findAll() {
-    const comments = await this.model.findAll();
+    const comments = await this.model.findAll({ include: 
+      [{ association: 'user', attributes: ['username']}], order: [['create_at', 'DESC']]});
     return comments;
   }
 

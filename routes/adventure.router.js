@@ -2,23 +2,21 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 
-
-const CommentService = require('../services/comment.service.js');
-const service = new CommentService();
+const AdventureService = require('../services/adventure.service.js');
+const service = new AdventureService();
 
 const validatorHandler = require('../middlewares/validator.handler');
-const { createCommentSchema } = require('../schemas/comment.schema');
+const { createAdventureSchema } = require('../schemas/adventure.schema');
 
 router.post('/',
   passport.authenticate('jwt', { session: false }),
-  validatorHandler(createCommentSchema, 'body'),
+  validatorHandler(createAdventureSchema, 'body'),
   async (req, res, next) => {
     try {
-      const comment = req.body;
+      const adventure = req.body;
       const { user } = req;
       const token = req.headers.authorization.split(' ')[1];
-      console.log(token);
-      const response = await service.create(comment, user, token);
+      const response = await service.create(adventure, user, token);
       res.status(201).json(response);
     } catch (error) {
       next(error);
