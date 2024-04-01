@@ -17,6 +17,12 @@ class AdventureService {
       }
       // adventure should be an object with the following properties: city, state, month and activity
       const newAdventure = await mainChatGpt(adventure);
+      const myTripsData = await models.MyTrips.create(adventure);
+      await Promise.all(newAdventure.thingsToDo.map(async (thing) => {
+        thing.userId = user.sub;
+        thing.myTripId = myTripsData.id;
+        await models.ThingsToDo.create(thing);
+      }));
       // const newAdventure = await this.model.create(adventure);
       return newAdventure;
     }

@@ -1,6 +1,5 @@
 const OpenAI = require("openai");
 const { config } = require('../config');
-
 const openai = new OpenAI({
   apiKey: config.apiKeyOpenAI,
 });
@@ -9,7 +8,7 @@ async function mainChatGpt({city, state, activity, month}) {
 
   const activitiesPrompt = {
     prompt: "Respond only using this JSON object with the properties included in this JSON object. Respond with only valid JSON",
-    question: `List 3 things with a description for activities to do at/in ${city} ${state} if the focus of the trip is ${activity} in ${month}, fun fact of each activity and accesories that you will need to do the activity (at least one). ThingsToDo should have a property called activity, description, accesories and funFact. Acceseries should be a list string separated by "," .Always respond with at least one activity`,
+    question: `List 3 things with a description for activities to do at/in ${city} ${state} if the focus of the trip is ${activity} in ${month}, fun fact of each activity and accessories that you will need to do the activity (at least one). ThingsToDo should have a property called activity, description, accessories and funFact. accessories must be a string. Always respond with at least one activity`,
     thingsToDo: [],
   };
 
@@ -23,4 +22,4 @@ async function mainChatGpt({city, state, activity, month}) {
   return JSON.parse(activitiesResponse.choices[0].message.content);
 }
 
-module.exports = mainChatGpt ;
+module.exports = { mainChatGpt } ;

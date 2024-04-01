@@ -10,7 +10,7 @@ const ThingsToDoSchema = {
     primaryKey: true,
     autoIncrement: true
   },
-  activities: {
+  activity: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -18,7 +18,7 @@ const ThingsToDoSchema = {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  accesories: {
+  accessories: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -65,7 +65,7 @@ class ThingsToDo extends Model {
   static config(sequelize) {
     return {
       sequelize,
-      tableName: MY_TRIPS_TABLE,
+      tableName: THINGS_TODO_TABLE,
       modelName: 'ThingsToDo',
       timestamps: false
     }

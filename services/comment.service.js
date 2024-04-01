@@ -13,7 +13,6 @@ class CommentService {
   async create(comment, user, token) {
     comment.userId = user.sub;
     const verifyTokens = jwt.verify(token, config.jwtSecret);
-    console.log(verifyTokens);
     if (verifyTokens.sub !== user.sub) {
       throw boom.unauthorized('Invalid token');
     }

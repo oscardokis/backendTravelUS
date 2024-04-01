@@ -17,7 +17,6 @@ router.post('/',
       const comment = req.body;
       const { user } = req;
       const token = req.headers.authorization.split(' ')[1];
-      console.log(token);
       const response = await service.create(comment, user, token);
       res.status(201).json(response);
     } catch (error) {

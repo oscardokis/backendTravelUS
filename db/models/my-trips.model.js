@@ -17,6 +17,10 @@ const MyTripsSchema = {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  activity: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   month: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -25,7 +29,6 @@ const MyTripsSchema = {
     type: DataTypes.INTEGER,
     allowNull: false,
     field: 'user_id',
-    unique: true,
     references: {
       model: USER_TABLE,
       key: 'id',

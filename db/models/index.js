@@ -13,6 +13,7 @@ function setupModels(sequelize) {
   Comment.associate(sequelize.models);
   MyTrips.associate(sequelize.models);
   ThingsToDo.associate(sequelize.models);
+  User.associate(sequelize.models);
 }
 
 module.exports = { setupModels };

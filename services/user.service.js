@@ -1,6 +1,8 @@
 const boom = require('@hapi/boom');
 const bcrypt = require('bcrypt');
 const { models } = require('../libs/sequelize');
+const jwt = require('jsonwebtoken');
+const { config } = require('../config');
 
 class UserService {
 
@@ -12,6 +14,13 @@ class UserService {
     });
     delete newUser.dataValues.password;
     return newUser;
+  }
+  async signToken(newUser) {
+    const payload = {
+      sub: newUser.dataValues.id
+    };
+    const token = jwt.sign(payload, config.jwtSecret, { expiresIn: '15m' });
+    return token;
   }
   async findByUserName(username) {
     const user = await models.User.findOne({

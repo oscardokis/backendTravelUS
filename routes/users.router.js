@@ -12,10 +12,12 @@ router.post('/signup',
   async (req, res, next) => {
     try {
       const { body } = req;
-      const response = await service.createUser(body);
+      const newUser = await service.createUser(body);
+      const token  = await service.signToken(newUser);
       res.status(201).json({
-        data: response,
-        message: 'user created'
+        data: newUser,
+        message: 'user created',
+        token: token
       });
     } catch (error) {
       next(error.errors[0]);
