@@ -15,12 +15,18 @@ router.post('/signup',
       const newUser = await service.createUser(body);
       const token  = await service.signToken(newUser);
       res.status(201).json({
-        data: newUser,
+        user: newUser,
         message: 'user created',
         token: token
       });
     } catch (error) {
-      next(error.errors[0]);
+      if(error.message.includes('User already exists')) {
+        res.status(409).json({message: 'User already exists'});
+      }
+      if(error.message.includes('Email already exists')) {
+        res.status(409).json({message: 'Email already exists'});
+      }
+      next(error);
     }
 });
 

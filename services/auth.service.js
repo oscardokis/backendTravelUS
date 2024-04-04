@@ -25,14 +25,24 @@ class AuthService {
     return user;
   }
 
-  signToken(username) {
+  async signToken(username) {
     const payload = {
       sub: username.id
     };
-    const token = jwt.sign(payload, config.jwtSecret, { expiresIn: '15m' });
+    const token = jwt.sign(payload, config.jwtSecret, { expiresIn: '15s' });
     return { username, token };
   }
-
+  
+  async validateToken(token) {
+    try {
+      const payload = jwt.verify(token, config.jwtSecret);
+      const username = await service.findOne(payload.sub);
+      const id = payload.sub;
+      return { id, username };
+    } catch (error) {
+      throw boom.unauthorized();
+    }
+  }
   async senMail(infoEmail) {
     const transporter = nodemailer.createTransport({
       host: config.emailHost,
@@ -81,9 +91,7 @@ class AuthService {
       throw boom.unauthorized();
     }
   }
-  logout() {
-    this.authenticated = false;
-  }
+
 
   isAuthenticated() {
 

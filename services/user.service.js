@@ -7,6 +7,22 @@ const { config } = require('../config');
 class UserService {
 
   async createUser(data) {
+    const user = await models.User.findOne({
+      where: {
+        username: data.username
+      }
+    });
+    if(user) {
+      throw boom.badRequest('User already exists');
+    }
+    const email = await models.User.findOne({
+      where: {
+        email: data.email
+      }
+    });
+    if(email) {
+      throw boom.badRequest('Email already exists');
+    }
     const hash = await bcrypt.hash(data.password, 10);
     const newUser = await models.User.create({
       ...data,
@@ -30,16 +46,19 @@ class UserService {
     });
     return user;
   }
-  async findByEmail(email) {
+  async findOne(id) {
+    const user = await models.User.findByPk(id);
+    if(!user) {
+      throw boom.notFound('User not found');
+    }
+    return user;
+  }
+  async findOneByEmail(email) {
     const user = await models.User.findOne({
       where: {
         email
       }
     });
-    return user;
-  }
-  async findOne(id) {
-    const user = await models.User.findByPk(id);
     if(!user) {
       throw boom.notFound('User not found');
     }

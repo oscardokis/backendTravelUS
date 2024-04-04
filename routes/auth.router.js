@@ -13,21 +13,25 @@ router.post('/login',
   async (req, res, next) => {
     try {
       const { user } = req;
-      const { token } = service.signToken(user);
-      res.json({ message: 'Login successful', user, token });
+      const { token }  = await service.signToken(user);
+      res.json({ message: 'Login successful', user:user.dataValues, token: token });
     } catch (error) {
       next(error);
     }
   }
 );
 router.post('/logout', async (req, res) => {
+  //invalid the token
   res.status(200).json({ message: 'Logged out successfully' });
 });
+
 router.get('/validate', 
   passport.authenticate('jwt', { session: false }), 
-  (req, res, next) => {
+  async (req, res, next) => {
     try {
-      res.status(200).json({ message: 'Session is valid' });
+      const token = req.headers.authorization.split(' ')[1];
+      const user = await service.validateToken(token);
+      res.status(200).json({ message: 'Session is valid', token: token, user: user});
     } catch (error) {
       next(error);
     }
