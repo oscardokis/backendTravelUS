@@ -16,7 +16,7 @@ const config = {
   emailHost: process.env.EMAIL_HOST,
   emailTest: process.env.EMAIL_TEST,
   sessionSecret: process.env.SESSION_SECRET,
-  apiKeyOpenAI: process.env.API_KEY_OPENAI,
+  apiKeyOpenAI: process.env.OPENAI_API_KEY,
   dbUrl: process.env.DATABASE_URL
 }
 module.exports = { config };
