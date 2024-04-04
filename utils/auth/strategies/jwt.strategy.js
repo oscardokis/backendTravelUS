@@ -6,6 +6,7 @@ const options = {
   secretOrKey: config.jwtSecret,
 };
 
+
 const JwtStrategy = new Strategy(options, (payload, done) => {
   try {
     if (payload.sub && Date.now() / 1000 < payload.exp) {
