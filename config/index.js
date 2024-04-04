@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const config = {
   env: process.env.NODE_ENV || 'dev',
+  isProd: process.env.NODE_ENV === 'production',
   port: process.env.PORT || 3001,
   dbUser: process.env.DB_USER,
   dbPassword: process.env.DB_PASSWORD,
@@ -16,5 +17,6 @@ const config = {
   emailTest: process.env.EMAIL_TEST,
   sessionSecret: process.env.SESSION_SECRET,
   apiKeyOpenAI: process.env.API_KEY_OPENAI,
+  dbUrl: process.env.DATABASE_URL
 }
 module.exports = { config };
