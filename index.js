@@ -8,6 +8,7 @@ const port = config.port;
 
 const app = express();
 
+
 const whiteList = ['http://localhost:3001', 'http://localhost:5173', 'http://127.0.0.1:5173', 'https://imaginative-sunshine-8206ba.netlify.app'];
 const corsOptions = {
   origin: function (origin, callback) {
