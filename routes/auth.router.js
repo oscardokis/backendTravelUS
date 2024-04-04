@@ -8,6 +8,7 @@ const router = express.Router();
 const validatorHandler = require('../middlewares/validator.handler');
 const { createNewPassword } = require('../schemas/user.schema');
 
+
 router.post('/login',
   passport.authenticate('local', { session: false }),
   async (req, res, next) => {
