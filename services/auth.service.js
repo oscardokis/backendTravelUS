@@ -36,9 +36,8 @@ class AuthService {
   async validateToken(token) {
     try {
       const payload = jwt.verify(token, config.jwtSecret);
-      const username = await service.findOne(payload.sub);
-      const id = payload.sub;
-      return { id, username };
+      const user = await service.findOne(payload.sub);
+      return user;
     } catch (error) {
       throw boom.unauthorized();
     }

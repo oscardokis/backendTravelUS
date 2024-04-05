@@ -32,7 +32,7 @@ router.get('/validate',
     try {
       const token = req.headers.authorization.split(' ')[1];
       const user = await service.validateToken(token);
-      res.status(200).json({ message: 'Session is valid', token: token, user: user});
+      res.status(200).json({ message: 'Session is valid', token: token, user: {username: user.username, id: user.id}});
     } catch (error) {
       next(error);
     }
